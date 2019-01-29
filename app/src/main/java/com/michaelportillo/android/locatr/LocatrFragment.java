@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import java.util.zip.Inflater;
 
 /**
@@ -17,6 +20,7 @@ import java.util.zip.Inflater;
 
 public class LocatrFragment extends Fragment {
     private ImageView mImageView;
+    private GoogleApiClient mClient;
 
     public static LocatrFragment newInstance() {
         return new LocatrFragment();
@@ -26,6 +30,10 @@ public class LocatrFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mClient = new GoogleApiClient.Builder(getActivity())
+                .addApi(LocationServices.API)
+                .build();
     }
 
     @Override
