@@ -86,6 +86,11 @@ public class FlickrFetchr {
         return downloadGalleryItems(url);
     }
 
+    public List<GalleryItem> searchPhotos(Location location) {
+        String url = buildUrl(location);
+        return downloadGalleryItems(url);
+    }
+
     /**
      * Using a Uri.builder to build the complete URL for Flickr API request.
      */
