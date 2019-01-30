@@ -1,5 +1,6 @@
 package com.michaelportillo.android.locatr;
 
+import android.Manifest;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,10 @@ import java.util.zip.Inflater;
 
 public class LocatrFragment extends Fragment {
     private static final String TAG = "LocatrFragment";
+    private static final String[] LOCATION_PERMISSIONS = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+    };
     private ImageView mImageView;
     private GoogleApiClient mClient;
 
