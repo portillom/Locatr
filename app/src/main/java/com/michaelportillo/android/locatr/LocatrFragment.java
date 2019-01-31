@@ -3,6 +3,7 @@ package com.michaelportillo.android.locatr;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.List;
 import java.util.zip.Inflater;
 
 /**
@@ -134,6 +136,7 @@ public class LocatrFragment extends Fragment {
                     @Override
                     public void onLocationChanged(Location location) {
                         Log.i(TAG, "Got a fix: " + location);
+                        new SearchTask().execute(location);
                     }
                 });
     }
@@ -141,5 +144,23 @@ public class LocatrFragment extends Fragment {
     private boolean hasLocationPermission() {
         int result = ContextCompat.checkSelfPermission(getActivity(), LOCATION_PERMISSIONS[0]);
         return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private class SearchTask extends AsyncTask<Location, Void, Void> {
+        private GalleryItem mGalleryItem;
+
+        @Override
+        protected Void doInBackground(Location... params) {
+            FlickrFetchr fetchr = new FlickrFetchr();
+            List<GalleryItem> items = fetchr.searchPhotos(params[0]);
+
+            if (items.size() == 0) {
+                return null;
+            }
+
+            mGalleryItem = items.get(0);
+
+            return null;
+        }
     }
 }
