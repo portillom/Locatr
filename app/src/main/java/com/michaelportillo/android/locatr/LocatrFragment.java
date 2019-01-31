@@ -32,6 +32,7 @@ public class LocatrFragment extends Fragment {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
     };
+    private static final int REQUEST_LOCATION_PERMISSIONS = 0;
     private ImageView mImageView;
     private GoogleApiClient mClient;
 
@@ -100,6 +101,9 @@ public class LocatrFragment extends Fragment {
             case R.id.action_locate:
                 if (hasLocationPermission()) {
                     findImage();
+                } else {
+                    requestPermissions(LOCATION_PERMISSIONS,
+                            REQUEST_LOCATION_PERMISSIONS);
                 }
                 return true;
             default:
