@@ -22,6 +22,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.IOException;
@@ -44,6 +46,7 @@ public class LocatrFragment extends SupportMapFragment {
     private Location mCurrentLocation;
 
     private GoogleApiClient mClient;
+    private GoogleMap mMap;
 
     public static LocatrFragment newInstance() {
         return new LocatrFragment();
@@ -68,6 +71,13 @@ public class LocatrFragment extends SupportMapFragment {
                     }
                 })
                 .build();
+
+        getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap = googleMap;
+            }
+        });
     }
 
 
